@@ -5,8 +5,12 @@ import com.yootk.shiro.service.impl.MemberServiceImpl;
 import com.yootk.shiro.vo.Member;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+
+import java.util.Map;
+import java.util.Set;
 
 // 实现用户认证与授权处理的操作
 public class MemberRealm extends AuthorizingRealm {
@@ -32,7 +36,14 @@ public class MemberRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("【MemberRealm】============== 用户授权处理 ==============");
-        return null;
+        IMemberService memberService = new MemberServiceImpl() ;
+        // 根据用户名查询权限
+        Map<String, Set<String>> map = memberService.findPrivilegeByMember((String) principals.getPrimaryPrincipal());
+        // 将所有获取的授权信息保存在AuthorizationInfo类的实例之中
+        SimpleAuthorizationInfo authz = new SimpleAuthorizationInfo() ; // 返回的授权信息
+        authz.setRoles(map.get("allRoles"));
+        authz.setStringPermissions(map.get("allActions"));
+        return authz;
     }
 
 }

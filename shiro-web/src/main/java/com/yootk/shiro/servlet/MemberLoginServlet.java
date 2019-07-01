@@ -4,6 +4,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
 import javax.servlet.ServletException;
@@ -25,8 +26,11 @@ public class MemberLoginServlet extends HttpServlet {
         // 在Shiro里面如果要进行认证处理则一定要提供有一个认证的Token信息
         AuthenticationToken token = new UsernamePasswordToken(mid,password) ;
         try {
-            SecurityUtils.getSubject().login(token);
+            Subject subject = SecurityUtils.getSubject();
+            subject.login(token) ; // 登录认证
             path = "/pages/welcome.jsp" ; // 登录成功不出现异常
+            System.out.println("【是否拥有dept角色】" + subject.hasRole("dept"));
+            System.out.println("【是否拥有goods:add权限】" + subject.isPermitted("goods:add"));
         } catch (Exception e) {
             request.setAttribute("errors",e.getMessage());
         }
