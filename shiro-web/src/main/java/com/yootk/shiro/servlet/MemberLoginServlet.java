@@ -1,8 +1,10 @@
 package com.yootk.shiro.servlet;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,8 @@ import java.io.IOException;
 public class MemberLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         String path = "/login.jsp" ;    // 设置一个跳转路径
         String mid = request.getParameter("mid") ;
         String password = request.getParameter("password") ;
