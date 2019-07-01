@@ -9,6 +9,7 @@
     <version>1.0</version>
     <modules>
         <module>shiro-base</module>
+        <module>shiro-web</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
@@ -55,9 +56,21 @@
         <sentinel.version>1.6.2</sentinel.version>
         <shiro.version>1.4.1</shiro.version>
         <log4j.version>2.12.0</log4j.version>
+        <commons-logging.version>1.2</commons-logging.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-core</artifactId>
