@@ -6,7 +6,7 @@
 </head>
 <body>
 <%!
-    public static final String LOGIN_URL = "login.servlet" ;
+    public static final String LOGIN_URL = "login_handle.action" ;
 %>
 ${errors}
 <form action="<%=LOGIN_URL%>" method="post">
