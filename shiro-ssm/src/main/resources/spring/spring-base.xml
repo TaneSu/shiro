@@ -17,7 +17,19 @@
     <import resource="spring-transaction.xml"/>
     <import resource="spring-mybatis.xml"/>
     <import resource="spring-shiro.xml"/>
+
+    <!--shiro控制层注解生效-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean id="serviceDefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"
+          class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean id="serviceAuthorizationAttributeSourceAdvisor"
+          class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
 </beans>
 
 
