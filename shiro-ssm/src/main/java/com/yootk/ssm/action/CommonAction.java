@@ -13,4 +13,8 @@ public class CommonAction {
     public String welcome() {
         return "welcome" ;
     }
+    @RequestMapping("/logoutInfo")
+    public String logout() {
+        return "logout_info" ;
+    }
 }
